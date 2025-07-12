@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read # actions/checkout
+  pages: write # publish to Pages
+  id-token: write # request OIDC token for deploy
+
 jobs:
   test-and-build:
     runs-on: ubuntu-latest
@@ -35,7 +40,7 @@ jobs:
         run: npm run build
 
       - uses: actions/upload-pages-artifact@v3
-        if: matrix.node-version == 20
+        if: matrix.node-version == 22
         with:
           path: dist
 
